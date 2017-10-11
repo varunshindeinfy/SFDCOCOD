@@ -1,4 +1,11 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <Package xmlns="http://soap.sforce.com/2006/04/metadata">
+    <types>
+        <members>Account</members>
+        <members>Activity</members>
+        <members>Contact</members>
+        <members>Opportunity</members>
+        <name>CustomObject</name>
+    </types>
     <version>38.0</version>
 </Package>
