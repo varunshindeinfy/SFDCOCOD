@@ -1,0 +1,6 @@
+<apex:page standardController="Account" recordSetVar="accounts" tabstyle="account">
+
+<apex:sectionHeader title="{!$ObjectType.Account.LabelPlural}" subtitle="Home"/>
+<apex:enhancedList type="account" rowsPerPage="10" height="300"/>
+
+</apex:page>

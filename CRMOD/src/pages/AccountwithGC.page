@@ -1,0 +1,49 @@
+<!--This page displays Account, its related account plans and grand child level Tasks  -->
+
+<apex:page standardController="Account" tabStyle="account"
+	extensions="OCODAccountControllerExtension">
+	<apex:detail relatedList="false" />
+	<apex:relatedList list="AccountPlans__r" />
+    
+	<!-- Get Label using $ObjectType -->
+	<apex:pageblock title="{!$ObjectType.AccountPlan__c.labelPlural}">
+		<apex:facet name="header">
+			<div class="pbtitle">
+                
+			<!-- Got this URL using Describe Apex classes -->
+				<img src="/img/icon/custom51_100/globe16.png"
+					class="relatedListIcon" alt="AccountPlan"
+					style="width: 24px; display: block; top: 3px; margin-top: -4px; margin-left: -1px;" />
+				<h3>{!$ObjectType.AccountPlan__c.labelPlural}</h3>
+			</div>
+		</apex:facet>
+		<apex:form >
+			<apex:pageBlockTable value="{!Account.AccountPlans__r}" var="AP">
+
+				<apex:column >
+					<apex:commandLink action="{!URLFOR($Action.AccountPlan__C.View, AP.id)}"
+						value="View"></apex:commandLink>
+				</apex:column>
+
+				<apex:column >
+					<apex:commandLink action="{!CallGC}" value="CallGC" reRender="Refreshthistableonly">
+                        
+					<!--One way to assign paramaeter to extension controller class, also can use Apex.currentpages.Getparamater  -->
+						<apex:param name="PlanId" value="{!AP.id}" assignTo="{!PlanId}" />
+					</apex:commandLink>
+				</apex:column>
+
+				<apex:column value="{!AP.name}" />
+
+			</apex:pageBlockTable>
+			
+            <apex:outputPanel id="Refreshthistableonly">
+                <apex:pageblock title="{!$ObjectType.Task.labelPlural}">
+                    <apex:pageBlockTable value="{!GCTask}" var="GC">
+                        <apex:column value="{!GC.Subject}"></apex:column>
+                    </apex:pageBlockTable>
+                </apex:pageblock>
+			</apex:outputPanel>
+		</apex:form>
+	</apex:pageblock>
+</apex:page>
